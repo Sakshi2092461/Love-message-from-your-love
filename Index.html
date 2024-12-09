@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Message</title>
+    <style>
+        body {
+            background-color: #ffc0cb; /* Baby pink background */
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 500px;
+        }
+
+        input, button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input {
+            width: 80%;
+        }
+
+        button {
+            background-color: #ff69b4;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff1493;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Love Message</h1>
+        <p>Enter your boyfriend's name:</p>
+        <input type="text" id="nameInput" placeholder="Type his name here...">
+        <button onclick="startMessage()">Submit</button>
+        <div class="message" id="messageBox"></div>
+    </div>
+
+    <script>
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function printSlowly(element, message, delayMs = 100) {
+            for (let i = 0; i < message.length; i++) {
+                element.textContent += message[i];
+                await sleep(delayMs);
+            }
+            element.innerHTML += "<br>";
+        }
+
+        async function startMessage() {
+            const name = document.getElementById("nameInput").value.trim();
+            const messageBox = document.getElementById("messageBox");
+            if (!name) {
+                messageBox.textContent = "Please enter a name!";
+                return;
+            }
+
+            messageBox.innerHTML = "";
+            await printSlowly(messageBox, `Hey ${name}, there's something I've been wanting to tell you...`);
+            await sleep(2000);
+
+            await printSlowly(messageBox, "From the first moment we met, you made my heart race.");
+            await sleep(2000);
+
+            await printSlowly(messageBox, "You make me laugh, you lift me up, and you are my best friend.");
+            await sleep(2000);
+
+            await printSlowly(messageBox, "I can't imagine my life without you, and I don't want to.");
+            await sleep(2000);
+
+            await printSlowly(messageBox, "So...");
+            await sleep(1000);
+
+            await printSlowly(messageBox, "I love you so much. Will you be mine forever?");
+            await sleep(1000);
+
+            messageBox.innerHTML += `<br>Type 'yes' or 'no': <input id="responseInput" placeholder="Type here..."><button onclick="checkResponse('${name}')">Submit</button>`;
+        }
+
+        async function checkResponse(name) {
+            const response = document.getElementById("responseInput").value.trim().toLowerCase();
+            const messageBox = document.getElementById("messageBox");
+
+            messageBox.innerHTML = "";
+
+            if (response === "yes") {
+                await printSlowly(messageBox, `Yay! Love you too, my love ❤️, ${name}!`);
+            } else {
+                await printSlowly(messageBox, "That's not an option for you 😝");
+            }
+        }
+    </script>
+</body>
+</html>
